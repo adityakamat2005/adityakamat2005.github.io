@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aditya Kamat | Full Stack Developer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root{
+  --bg:#0B0B0A;
+  --panel:#141411;
+  --ink:#F2F0E8;
+  --yellow:#FFD23F;
+  --yellow-dim:#A8861F;
+  --line:#2A2A24;
+  --muted:#8C887D;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:'JetBrains Mono', monospace;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px;}
+h1,h2,h3{font-family:'Space Grotesk', sans-serif;}
+a{color:inherit;}
+
+/* ---------- nav ---------- */
+header{
+  border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50;
+  background:rgba(11,11,10,0.9);backdrop-filter:blur(8px);
+}
+.navbar{max-width:1080px;margin:0 auto;padding:18px 26px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-family:'Space Grotesk';font-weight:700;font-size:17px;letter-spacing:0.5px;}
+.logo .dot{color:var(--yellow);}
+.navlinks{display:flex;gap:8px;align-items:center;}
+.navlinks a{
+  text-decoration:none;color:var(--muted);font-size:12px;padding:6px 12px;
+  border:1px solid transparent;border-radius:4px;
+}
+.navlinks a:hover{color:var(--yellow);border-color:var(--line);}
+.nav-cta{display:flex;gap:10px;align-items:center;}
+.menu-toggle{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:4px;padding:7px 11px;cursor:pointer;font-family:inherit;}
+
+/* ---------- section label: terminal prompt style ---------- */
+.section-label{
+  font-size:12px;color:var(--yellow-dim);margin-bottom:24px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-label::before{content:"$";color:var(--yellow);font-weight:700;}
+section{padding:64px 0;border-bottom:1px solid var(--line);}
+section:last-of-type{border-bottom:none;}
+
+/* ---------- buttons / tags ---------- */
+.btn{
+  font-family:'JetBrains Mono';font-weight:700;font-size:13px;
+  border:1px solid var(--yellow);border-radius:4px;
+  padding:11px 20px;cursor:pointer;
+  background:transparent;color:var(--yellow);
+  text-decoration:none;display:inline-block;
+  transition:background .15s, color .15s;
+}
+.btn:hover{background:var(--yellow);color:#0B0B0A;}
+.btn.solid{background:var(--yellow);color:#0B0B0A;}
+.btn.solid:hover{background:transparent;color:var(--yellow);}
+
+.tag{
+  font-size:12px;color:var(--muted);
+  border:1px solid var(--line);border-radius:3px;
+  padding:5px 10px;font-family:'JetBrains Mono';
+}
+.tag::before{content:"[";color:var(--yellow-dim);}
+.tag::after{content:"]";color:var(--yellow-dim);}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+
+/* ---------- hero: terminal window ---------- */
+.hero{padding:64px 0 50px;}
+.hero-grid{display:block;}
+.term-flex{display:flex;gap:28px;align-items:flex-start;margin-bottom:4px;}
+.term-text{flex:1;min-width:0;}
+.term-photo{
+  width:270px;height:270px;border-radius:12px;flex-shrink:0;
+  border:1px dashed var(--yellow-dim);padding:10px;
+}
+.term-photo-inner{width:100%;height:100%;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:var(--bg);}
+.term-photo-inner img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+.terminal{
+  border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden;
+}
+.term-bar{
+  display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);
+}
+.term-dot{width:10px;height:10px;border-radius:50%;background:var(--line);}
+.term-bar span.fname{margin-left:10px;font-size:11px;color:var(--muted);}
+.term-body{padding:32px 32px 36px;}
+.term-line{font-size:13px;color:var(--muted);margin-bottom:6px;}
+.term-line .prompt{color:var(--yellow);}
+.term-output h1{
+  font-size:42px;line-height:1.12;letter-spacing:-0.5px;margin-bottom:20px;
+}
+.term-output h1 .accent{color:var(--yellow);}
+.term-desc{color:var(--muted);font-size:14px;line-height:1.75;max-width:480px;margin-bottom:24px;}
+.cursor{display:inline-block;width:9px;height:16px;background:var(--yellow);vertical-align:middle;animation:blink 1s steps(1) infinite;}
+@keyframes blink{50%{opacity:0;}}
+@media (prefers-reduced-motion:reduce){.cursor{animation:none;}}
+
+.cta-row{display:flex;gap:12px;margin-top:6px;flex-wrap:wrap;}
+.social-row{display:flex;gap:10px;margin-top:22px;}
+.icon-btn{
+  width:38px;height:38px;border:1px solid var(--line);border-radius:5px;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
+  text-decoration:none;color:var(--ink);transition:border-color .15s,color .15s;
+}
+.icon-btn:hover{border-color:var(--yellow);color:var(--yellow);}
+
+/* stat row under terminal */
+.stat-row{display:flex;gap:1px;margin-top:34px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+.stat{flex:1;background:var(--panel);padding:16px 18px;text-align:left;}
+.stat .num{font-family:'Space Grotesk';font-weight:700;font-size:22px;color:var(--yellow);}
+.stat .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;}
+
+/* ---------- about ---------- */
+.about-panel{
+  border:1px solid var(--line);border-radius:8px;background:var(--panel);
+  padding:30px 32px;font-size:14px;line-height:1.9;color:var(--muted);
+}
+.about-panel p{margin-bottom:16px;}
+.about-panel p:last-child{margin-bottom:0;}
+.about-panel b{color:var(--ink);font-weight:600;border-bottom:1px solid var(--yellow-dim);}
+
+/* ---------- skills: clipped-corner cards ---------- */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.skill-card{
+  background:var(--panel);border:1px solid var(--line);
+  clip-path:polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  padding:20px;
+}
+.skill-card h3{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--yellow);margin-bottom:14px;}
+.skill-card .tag-row{gap:7px;}
+.skill-card .tag{font-size:11px;padding:4px 8px;}
+
+/* ---------- projects ---------- */
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.proj-card{
+  border:1px solid var(--line);background:var(--panel);border-radius:6px;
+  padding:24px;position:relative;transition:border-color .2s;
+}
+.proj-card:hover{border-color:var(--yellow-dim);}
+.proj-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.proj-card h3{font-size:17px;}
+.proj-index{font-size:11px;color:var(--yellow-dim);}
+.proj-card p{color:var(--muted);font-size:13px;line-height:1.65;margin-bottom:16px;}
+
+/* ---------- education / languages ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.edu-card{
+  border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:22px;
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+}
+.edu-card .deg{font-family:'Space Grotesk';font-weight:600;font-size:15px;margin-bottom:8px;}
+.edu-card .place{color:var(--muted);font-size:13px;margin-bottom:4px;}
+.edu-card .loc{font-size:12px;color:var(--muted);}
+.date-pill{font-size:11px;color:var(--yellow);border:1px solid var(--yellow-dim);border-radius:4px;padding:4px 10px;white-space:nowrap;height:fit-content;}
+
+.lang-list{display:flex;flex-direction:column;gap:10px;}
+.lang-row{
+  border:1px solid var(--line);background:var(--panel);border-radius:6px;
+  padding:13px 16px;display:flex;justify-content:space-between;align-items:center;font-size:13px;
+}
+.bars{display:flex;gap:3px;}
+.bars span{width:14px;height:4px;background:var(--yellow);display:block;}
+
+/* ---------- contact ---------- */
+.contact-section{text-align:center;}
+.contact-tagline{font-size:14px;color:var(--muted);margin-bottom:30px;}
+.contact-cards{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+.contact-card{
+  width:190px;padding:22px 0;border:1px solid var(--line);border-radius:6px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-weight:600;text-decoration:none;color:var(--ink);font-size:13px;
+  background:var(--panel);transition:border-color .15s,color .15s;
+}
+.contact-card:hover{border-color:var(--yellow);color:var(--yellow);}
+
+footer{text-align:center;padding:28px 0;font-size:11px;color:var(--muted);}
+footer .prompt{color:var(--yellow-dim);}
+
+@media(max-width:860px){
+  .skills-grid{grid-template-columns:repeat(2,1fr);}
+  .two-col{grid-template-columns:1fr;}
+  .proj-grid{grid-template-columns:1fr;}
+  .navlinks{display:none;}
+  .menu-toggle{display:inline-block;}
+  .term-flex{flex-direction:column-reverse;align-items:center;text-align:center;}
+  .term-photo{width:120px;height:120px;}
+}
+@media(max-width:540px){
+  .term-output h1{font-size:30px;}
+  .skills-grid{grid-template-columns:1fr;}
+  .stat-row{flex-direction:column;}
+  .contact-cards{flex-direction:column;align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo" id="logo"></div>
+    <nav class="navlinks">
+      <a href="#about">about</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#mini-projects">mini projects</a>
+      <a href="#education">education</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn solid" href="#contact" style="padding:8px 16px;font-size:11px;">get in touch</a>
+      <button class="menu-toggle" id="menuToggle">≡</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-grid">
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="term-dot"></div><div class="term-dot"></div><div class="term-dot"></div>
+          <span class="fname">guest@portfolio:~</span>
+        </div>
+        <div class="term-body">
+          <div class="term-flex">
+            <div class="term-text">
+              <div class="term-line"><span class="prompt">$</span> whoami</div>
+              <div class="term-output">
+                <h1 id="heroHeadline"></h1>
+              </div>
+              <div class="term-line"><span class="prompt">$</span> about.txt</div>
+              <p class="term-desc" id="heroDesc"></p>
+            </div>
+            <div class="term-photo"><div class="term-photo-inner"><img id="heroImg" alt="Aditya Kamat"></div></div>
+          </div>
+          <div class="term-line"><span class="prompt">$</span> _ <span class="cursor"></span></div>
+          <div class="cta-row">
+            <a class="btn solid" href="#projects">view projects</a>
+            <a class="btn" href="#contact">get in touch</a>
+          </div>
+          <div class="social-row">
+            <a class="icon-btn" id="ghIcon" target="_blank" rel="noopener">GH</a>
+            <a class="icon-btn" id="liIcon" target="_blank" rel="noopener">in</a>
+            <a class="icon-btn" id="mailIcon">@</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row" id="statRow"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">about</div>
+    <div class="about-panel" id="aboutBox"></div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">skills</div>
+    <div class="skills-grid" id="skillsGrid"></div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">projects</div>
+    <div class="proj-grid" id="projectsList"></div>
+  </section>
+
+  <!-- MINI PROJECTS -->
+  <section id="mini-projects">
+    <div class="section-label">mini-projects</div>
+    <div class="proj-grid" id="miniProjectsList"></div>
+  </section>
+
+  <!-- EDUCATION + LANGUAGES -->
+  <section id="education">
+    <div class="two-col">
+      <div>
+        <div class="section-label">education</div>
+        <div class="edu-card" id="eduCard"></div>
+      </div>
+      <div>
+        <div class="section-label">languages</div>
+        <div class="lang-list" id="langList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="section-label" style="justify-content:center;">contact</div>
+    <p class="contact-tagline">Let's build something amazing together</p>
+    <div class="contact-cards">
+      <a class="contact-card" id="liCard" target="_blank" rel="noopener">in &nbsp;LinkedIn</a>
+      <a class="contact-card" id="ghCard" target="_blank" rel="noopener">GH &nbsp;GitHub</a>
+      <a class="contact-card" id="mailCard">@ &nbsp;Email</a>
+    </div>
+  </section>
+
+  <footer><span class="prompt">$</span> exit — designed &amp; built by Aditya Kamat © <span id="year"></span></footer>
+</div>
+
+<script>
+/* ============================================================
+   ALL CONTENT LIVES HERE. Edit this object to add/remove/update
+   anything on the site, no HTML/CSS editing required.
+============================================================ */
+const DATA = {
+  name: "Aditya Kamat",
+  logoFirst: "aditya",
+  logoLast: ".kamat",
+  headline: 'Aditya Kamat',
+  heroDesc: "Final-year Information Science & Engineering student crafting full-stack systems with Spring Boot, exploring AI and Data Analytics on the side, and treating every project like a build worth showing.",
+  photo: "assets/avatar.png",
+  links: {
+    github: "https://github.com/adityakamat2005",
+    linkedin: "https://www.linkedin.com/in/adityakamat2005",
+    email: "adityakamat911@gmail.com"
+  },
+  stats: [
+    { num: "04+", label: "Projects Shipped" },
+    { num: "Java", label: "Primary Stack" },
+    { num: "2027", label: "Graduating" }
+  ],
+  about: [
+    "I am a passionate <b>Information Science Engineering student</b> with a strong interest in <b>Full Stack Development, Artificial Intelligence, and Database Systems</b>. I enjoy building real-world projects that solve practical problems and continuously challenge me to learn new technologies.",
+    "Throughout my academic journey, I have worked on <b>full-stack web applications, database-driven systems, and AI-powered solutions</b>. My projects have given me hands-on experience with <b>Java, Spring Boot, PostgreSQL, MySQL, React, and FastAPI</b>.",
+    "I am passionate about <b>AI and Data Analytics</b>, regularly exploring emerging technologies and modern development practices.",
+    "My goal is to combine <b>technical expertise, creativity, and an engineering mindset</b> to build impactful digital products and contribute to innovative teams while continuously growing as a software engineer."
+  ],
+  skills: {
+    Frontend: ["React","Thymeleaf","HTML","CSS","JavaScript"],
+    Backend: ["Java","Spring Boot","Spring Security","FastAPI","REST APIs","WebSockets (STOMP)"],
+    Languages: ["Java","JavaScript","SQL"],
+    Databases: ["PostgreSQL","MySQL"],
+    Tools: ["Git","GitHub","Docker","Maven"]
+  },
+  projects: [
+    { title:"CanopyAI", desc:"RAG-based document intelligence platform — query your own documents using vector search and AI-generated answers.", stack:"Spring Boot · PostgreSQL · Thymeleaf" },
+    { title:"ProjectPulse", desc:"Role-based SaaS project management system with live updates across teams in real time.", stack:"Spring Boot · Spring Security 6 · WebSockets/STOMP · Thymeleaf" },
+    { title:"HNest", desc:"Hostel management system handling room allocation, mess menus, and administrative workflows.", stack:"Spring Boot · Thymeleaf · Hibernate · PostgreSQL" },
+    { title:"DataVista", desc:"Dataset analyzer — upload xlsx, csv, or docx files and get AI-powered insights and reports.", stack:"Spring Boot · H2 · Gemini API · Apache POI" }
+  ],
+  miniProjects: [
+    { title:"Smart Expense Tracker", desc:"Expense management app with Excel export, deployed live on Railway.", stack:"Spring Boot · PostgreSQL · Apache POI" },
+    { title:"AI Document Information Extractor", desc:"Extracts structured information from scanned documents using OCR and AI-based parsing.", stack:"Python · FastAPI · Tesseract OCR · PyTesseract" }
+  ],
+  education: {
+    degree: "Bachelor's Degree in Information Science and Engineering",
+    place: "Canara Engineering College",
+    duration: "2023 - Present",
+    location: "Mangalore, Karnataka"
+  },
+  languages: ["Kannada","English","Hindi"]
+};
+
+/* ============================ RENDER ============================ */
+document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('logo').innerHTML = `${DATA.logoFirst}<span class="dot">${DATA.logoLast}</span>`;
+document.getElementById('heroHeadline').innerHTML = DATA.headline;
+document.getElementById('heroDesc').textContent = DATA.heroDesc;
+document.getElementById('heroImg').src = DATA.photo;
+
+document.getElementById('ghIcon').href = DATA.links.github;
+document.getElementById('liIcon').href = DATA.links.linkedin;
+document.getElementById('mailIcon').href = "mailto:" + DATA.links.email;
+document.getElementById('ghCard').href = DATA.links.github;
+document.getElementById('liCard').href = DATA.links.linkedin;
+document.getElementById('mailCard').href = "mailto:" + DATA.links.email;
+
+document.getElementById('statRow').innerHTML = DATA.stats.map(s=>`
+  <div class="stat"><div class="num">${s.num}</div><div class="label">${s.label}</div></div>
+`).join('');
+
+document.getElementById('aboutBox').innerHTML = DATA.about.map(p=>`<p>${p}</p>`).join('');
+
+document.getElementById('skillsGrid').innerHTML = Object.entries(DATA.skills).map(([cat,items])=>`
+  <div class="skill-card">
+    <h3>${cat}</h3>
+    <div class="tag-row">${items.map(i=>`<span class="tag">${i}</span>`).join('')}</div>
+  </div>
+`).join('');
+
+document.getElementById('projectsList').innerHTML = DATA.projects.map((p,i)=>`
+  <div class="proj-card">
+    <div class="proj-top"><h3>${p.title}</h3><span class="proj-index">0${i+1}</span></div>
+    <p>${p.desc}</p>
+    <div class="tag-row">${p.stack.split(' · ').map(s=>`<span class="tag">${s}</span>`).join('')}</div>
+  </div>
+`).join('');
+
+document.getElementById('miniProjectsList').innerHTML = DATA.miniProjects.map((p,i)=>`
+  <div class="proj-card">
+    <div class="proj-top"><h3>${p.title}</h3><span class="proj-index">0${i+1}</span></div>
+    <p>${p.desc}</p>
+    <div class="tag-row">${p.stack.split(' · ').map(s=>`<span class="tag">${s}</span>`).join('')}</div>
+  </div>
+`).join('');
+
+document.getElementById('eduCard').innerHTML = `
+  <div>
+    <div class="deg">${DATA.education.degree}</div>
+    <div class="place">${DATA.education.place}</div>
+    <div class="loc">${DATA.education.location}</div>
+  </div>
+  <div class="date-pill">${DATA.education.duration}</div>
+`;
+
+document.getElementById('langList').innerHTML = DATA.languages.map(l=>`
+  <div class="lang-row"><span>${l}</span><span class="bars"><span></span><span></span><span></span></span></div>
+`).join('');
+
+document.getElementById('menuToggle').addEventListener('click', ()=>{
+  const nav = document.querySelector('.navlinks');
+  const open = nav.style.display === 'flex';
+  nav.style.display = open ? 'none' : 'flex';
+  nav.style.flexDirection = 'column';
+  nav.style.position='absolute';
+  nav.style.top='62px';
+  nav.style.right='26px';
+  nav.style.background='var(--panel)';
+  nav.style.border='1px solid var(--line)';
+  nav.style.borderRadius='6px';
+  nav.style.padding='14px 20px';
+  nav.style.gap='10px';
+});
+</script>
+</body>
+</html>
